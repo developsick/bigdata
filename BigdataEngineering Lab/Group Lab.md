@@ -1,14 +1,14 @@
 # Team2
 
-* 조장 : 이인선  
-![이인선](https://user-images.githubusercontent.com/48976549/61349022-9b478c00-a89d-11e9-8ebf-7afcae0989e1.PNG)
-* 조원 : 김중호  
-![김중호](https://user-images.githubusercontent.com/48976549/61349020-9aaef580-a89d-11e9-9daa-fc1d4eb8e619.PNG)
-* 조원 : 윤산성  
-![윤산성](https://user-images.githubusercontent.com/48976549/61349027-9c78b900-a89d-11e9-8c56-dfe7dfab83b7.PNG)
-* 조원 : 이선민  
-![이선민](https://user-images.githubusercontent.com/48976549/61349018-997dc880-a89d-11e9-82eb-bf50f076a2f4.PNG)
+**조장 : 이인선**
+![이인선](https://user-images.githubusercontent.com/48976549/61356068-89bbaf80-a8b0-11e9-9653-f14129096dd5.PNG)
 
+**조원 : 김중호, 윤산성, 이선민**
+<div>  
+<img src = "https://user-images.githubusercontent.com/48976549/61349020-9aaef580-a89d-11e9-9daa-fc1d4eb8e619.PNG">
+<img src = "https://user-images.githubusercontent.com/48976549/61349027-9c78b900-a89d-11e9-8c56-dfe7dfab83b7.PNG">
+<img src = "https://user-images.githubusercontent.com/48976549/61349018-997dc880-a89d-11e9-82eb-bf50f076a2f4.PNG">
+</div>  
 
 ## CM Install Lab
 
@@ -77,7 +77,7 @@ nslookup [도메인명]
 
 * Hostname modification for each node
 ```
-# 각각의 node (노드명은 약어 말고 full name으로 지정)
+# 각각의 node - 노드명은 약어 말고 full name으로 지정
 sudo hostnamectl set-hostname [노드명]
 예) sudo hostnamectl set-hostname util.com
 
@@ -114,10 +114,9 @@ ntpq -p
 ![](../Image/11.JPG)
 
 #### 추가 작업
-* sshd_config setting for each node  
+* sshd_config setting for each node - all node!
 ```
 # SSH를 사용하여 EC2 인스턴스에 로그인할 때 키 페어 대신에 암호 로그인을 활성화하여 패스워드 인증 허용
-# (*) all nodes!
 
 sudo vi /etc/ssh/sshd_config
 # PasswordAuthentication -> yes 로 변경 후 저장
@@ -126,7 +125,9 @@ sudo vi /etc/ssh/sshd_config
 sudo systemctl restart sshd.service
 sudo systemctl status sshd.service [not found 인 경우도 있음]
 ```
-![](../Image/10.JPG)
+PasswordAuthentication 변경
+![](../Image/10.JPG)  
+
 ![](../Image/9.JPG)
 
 * Install dependencies using yum - all node  
@@ -197,7 +198,7 @@ sudo cp mysql-connector-java-5.1.47-bin.jar /usr/share/java/mysql-connector-java
 cd /usr/share/java/
 sudo yum install -y mysql-connector-java
 ```
-* mysql connector 설치 확인
+mysql connector 설치 확인
 ![](../Image/18.JPG)
 
 #### • Create the databases and access grants you will need (util)
@@ -211,7 +212,7 @@ sudo systemctl start mariadb
 # mariadb 상태 확인
 sudo systemctl status mariadb
 ```
-* install 성공
+install 성공
 ![](../Image/15.JPG)
 ```
 # 권한 설정 : 전체 Y 선택
@@ -250,7 +251,7 @@ GRANT ALL ON oozie.* TO 'oozie-user'@'%' IDENTIFIED BY 'password';
 FLUSH PRIVILEGES;
 ```
 ![](../Image/21.JPG)
-* database 생성 확인  
+database 생성 확인  
 ![](../Image/22.JPG)
 #### • Start your Cloudera Manager server -- debug as necessary
 
