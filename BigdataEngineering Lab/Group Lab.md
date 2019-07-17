@@ -59,6 +59,7 @@ ifconfig
 vi /etc/hosts
 
 # 아래 내용 추가
+# <private ip> <fqdn>
 172.31.13.194 util.com util
 172.31.19.171 mn.com mn
 172.31.13.237 dn1.com dn1
@@ -79,7 +80,7 @@ nslookup [도메인명]
 ```
 # 각각의 node ( 노드 명은 약어 말고 full name 으로 해주는 게 좋음)
 sudo hostnamectl set-hostname <노드명>
-예) sudo hostnamectl set-hostname node1.sk.com
+예) sudo hostnamectl set-hostname util.com
 
 # 변경된 hostname 확인
 hostname
@@ -140,7 +141,7 @@ https://www.cloudera.com/documentation/enterprise/5-15-x/topics/install_cm_cdh.h
 sudo wget https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/cloudera-manager.repo -P /etc/yum.repos.d/
 
 sudo vi /etc/yum.repos.d/cloudera-manager.repo
-수정 => baseurl=https://archive.cloudera.com/cm5/redhat/6/x86_64/cm/5.15.2/
+수정 => baseurl=https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.15.2/
 ```
 ![](../Image/13.JPG)
 
@@ -156,7 +157,7 @@ sudo yum install -y cloudera-manager-daemons cloudera-manager-server
 
 #### • Install a supported Oracle JDK on your first node(util)
 ```
-# java version 확인
+# 설치 가능한 jdk list 확인
 sudo yum list oracle*
 
 sudo yum install -y oracle-j2sdk1.7
@@ -201,14 +202,15 @@ sudo yum install -y mariadb-server
 
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
-# 잘 떴는지 확인
-sudo systemctl statuc mariadb
+# mariadb 상태 확인
+sudo systemctl status mariadb
 ```
 * install 성공
 ![](../Image/15.JPG)
 ```
-# 권한 설정
+# 권한 설정 : 전체 Y 선택
 sudo /usr/bin/mysql_secure_installation
+
 ```
 ![](../Image/20.JPG)
 
@@ -222,8 +224,8 @@ mysql -u root -p
 CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON scm.* TO 'scm-user'@'%' IDENTIFIED BY 'password';
 
-CREATE DATABASE aman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-GRANT ALL ON aman.* TO 'aman-user'@'%' IDENTIFIED BY 'password';
+CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON amon.* TO 'amon-user'@'%' IDENTIFIED BY 'password';
 
 CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON rman.* TO 'rman-user'@'%' IDENTIFIED BY 'password';
@@ -243,7 +245,7 @@ GRANT ALL ON oozie.* TO 'oozie-user'@'%' IDENTIFIED BY 'password';
 FLUSH PRIVILEGES;
 ```
 ![](../Image/21.JPG)
-* database 생성 확인
+* database 생성 확인  
 ![](../Image/22.JPG)
 #### • Start your Cloudera Manager server -- debug as necessary
 
@@ -255,7 +257,7 @@ sudo passwd centos
 ```
 #  set CM DB
 sudo /usr/share/cmf/schema/scm_prepare_database.sh mysql scm scm-user password
-
+# CM server start
 sudo systemctl start cloudera-scm-server
 sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
 ```
@@ -275,7 +277,9 @@ C:\Windows\System32\drivers\etc > hosts 파일 메모장에서 편집
 http://util.com:7180
 admin / admin
 - trial 선택
-- 화면상에 Could not connect to host. 라고 보이는 경우 ssh server가 제대로 설치되었는지 확인
+```
+* Could not connect to host. 라고 보이는 경우 ssh server가 제대로 설치되었는지 확인
+```
 # sudo yum install openssh-server
 # /sbin/service sshd status
 # /sbin/service sshd start
@@ -297,16 +301,28 @@ admin / admin
 ![](../Image/29.JPG)
 * 클러스터 설치 - ssh 로그인 정보 제공
 ![](../Image/30.JPG)
+```
+heartbeat 오류시 hostname 재확인
+```
 ![](../Image/31.JPG)
 
 #### • Install CDH using parcels
 ![](../Image/32.JPG)
+```
+swapiness, huge pages 에러시 설정 확인
+```
 ![](../Image/33.JPG)
 ![](../Image/34.JPG)
 #### • Deploy only the Core set of CDH services.
+```
+HDFS, YARN, ZooKeeper 먼저 설치
+```
 ![](../Image/35.JPG)
 #### • Deploy three ZooKeeper instances.
 ![](../Image/36.JPG)
+```
+생성한 db 계정으로 연결
+```
 ![](../Image/37.JPG)
 ![](../Image/38.JPG)
 ![](../Image/39.JPG)
@@ -338,5 +354,5 @@ admin / admin
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
-* 서비스 녹색불 확인
+* 클러스터 세팅 완료
 ![](../Image/55_cm.JPG)
