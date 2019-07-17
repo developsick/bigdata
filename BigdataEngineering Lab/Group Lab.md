@@ -78,7 +78,7 @@ nslookup [도메인명]
 * Hostname modification for each node
 ```
 # 각각의 node (노드명은 약어 말고 full name으로 지정)
-sudo hostnamectl set-hostname <노드명>
+sudo hostnamectl set-hostname [노드명]
 예) sudo hostnamectl set-hostname util.com
 
 # hostname 설정 후 재부팅 (*)
@@ -115,10 +115,10 @@ ntpq -p
 
 #### 추가 작업
 * sshd_config setting for each node  
-SSH를 사용하여 EC2 인스턴스에 로그인할 때 키 페어 대신에 암호 로그인을 활성화
-패스워드 인증 허용
-( all nodes ! - 진행 안하면 클러스터 안올라감 )
 ```
+# SSH를 사용하여 EC2 인스턴스에 로그인할 때 키 페어 대신에 암호 로그인을 활성화하여 패스워드 인증 허용
+# (*) all nodes!
+
 sudo vi /etc/ssh/sshd_config
 # PasswordAuthentication -> yes 로 변경 후 저장
 
@@ -216,7 +216,6 @@ sudo systemctl status mariadb
 ```
 # 권한 설정 : 전체 Y 선택
 sudo /usr/bin/mysql_secure_installation
-
 ```
 ![](../Image/20.JPG)
 
@@ -292,19 +291,18 @@ sudo yum install openssh-server
 ssh localhost
 ```
 
-* CDH 클러스터 설치 시작  
+**CDH 클러스터 설치 시작**
 ![](../Image/25.JPG)
 ![](../Image/26.JPG)
 ![](../Image/27.JPG)
 
-* JDK 설치 옵션  
-직접 node에 java 설치 진행했기 때문에 uncheck
+**JDK 설치 옵션** - 직접 node에 java 설치 진행했기 때문에 uncheck
 ![](../Image/28.JPG)
 
 #### • Do not use Single User Mode. Do not. Don't do it.
-* 단일모드 비활성화
+**단일모드 비활성화**
 ![](../Image/29.JPG)
-* ssh 로그인 정보 제공
+**ssh 로그인 정보 제공**
 ![](../Image/30.JPG)
 ```
 heartbeat 오류시 hostname 재확인
@@ -355,7 +353,7 @@ Server - dn[1-2],mn
 #### • Ignore any steps in the CM wizard that are marked (Optional)
 
 #### • Install the Data Hub Edition
-* Hue 서비스 추가
+**Hue 서비스 추가**
 ![](../Image/52.JPG)
 ```
 Hue Server - util
@@ -366,7 +364,7 @@ Load Balancer - util
 
 #### • 추가 서비스 설치
 
-* Hive 서비스 추가
+**Hive 서비스 추가**
 ```
 Gateway - dn[1-3], util
 Hive Metastore Server - util
@@ -376,7 +374,7 @@ HiveServer2 - util
 ![](../Image/43.JPG)
 ![](../Image/44.JPG)
 ![](../Image/45.JPG)
-* Oozie 서비스 추가
+**Oozie 서비스 추가**
 ![](../Image/46.JPG)
 ```
 Oozie Server - util
@@ -384,12 +382,12 @@ Oozie Server - util
 ![](../Image/47.JPG)
 ![](../Image/48.JPG)
 ![](../Image/49.JPG)
-* Sqoop 서비스 추가
+**Sqoop 서비스 추가**
 ```
 Sqoop2 Server - util
 ```
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
-* 클러스터 세팅 완료
+**클러스터 세팅 완료**
 ![](../Image/55_cm.JPG)
