@@ -15,8 +15,8 @@
 ### System Configuration Checks <all nodes>
 
 #### 1. Check vm.swappiness on all your nodes
-시스템이 얼마나 자주 HDD의 SWAP을 사용할 지를 결정함
 ```
+# 시스템이 얼마나 자주 HDD의 SWAP을 사용할 지를 결정함
 sudo sysctl vm.swappiness=1
 # 재부팅 시에도 변경되지 않도록 설정
 sudo sh -c "echo 'vm.swappiness=1'>> /etc/sysctl.conf"
@@ -35,9 +35,8 @@ sudo fdisk -l
 #### 3. If you have ext-based volumes, list the reserve space setting
 
 #### 4. Disable transparent hugepage support [all nodes!!]
-Hugepage ?  
-일반적인 컴퓨팅 시스템은 물리적 메모리 크기를 극복하기 위해 가상메모리 기법을 사용하며, 상이한 두 메모리를 매핑하기 위해 Page Table이 존재하고 Page 단위로 관리
 ```
+# hugepage는 2MB 크기의 메모리 블록
 sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/defrag"
 sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
 sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag' > /etc/rc.local" sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' >
@@ -88,6 +87,8 @@ hostname
 
 #### 7. Show the nscd service is running
 ```
+# nscd(Name Service Cache Daemon)데몬은 가장 일반적인 네임서비스에 대한 캐쉬 기능 제공
+# nscd start
 sudo yum -y install nscd  
 sudo systemctl enable nscd  
 sudo systemctl start nscd  
@@ -97,6 +98,8 @@ sudo systemctl status nscd
 
 #### 8. Show the ntpd service is running
 ```
+# ntpd는 ntp 서비스를 참조해 시스템 클록을 보정하면서 클라이언트에 시간을 제공하는 데몬
+# ntpd start
 sudo yum -y install ntp sudo chkconfig ntpd on  
 sudo systemctl enable ntpd  
 sudo systemctl start ntpd
