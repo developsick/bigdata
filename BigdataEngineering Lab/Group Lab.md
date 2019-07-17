@@ -162,7 +162,7 @@ sudo yum install -y cloudera-manager-daemons cloudera-manager-server
 ```
 ![](../Image/14.JPG)
 
-#### • Install a supported Oracle JDK on your first node(util)
+#### • Install a supported Oracle JDK on your first node [util]
 ```
 # 설치 가능한 jdk list 확인
 sudo yum list oracle*
