@@ -77,9 +77,12 @@ nslookup [도메인명]
 
 * Hostname modification for each node
 ```
-# 각각의 node ( 노드 명은 약어 말고 full name 으로 해주는 게 좋음)
+# 각각의 node (노드명은 약어 말고 full name으로 지정)
 sudo hostnamectl set-hostname <노드명>
 예) sudo hostnamectl set-hostname util.com
+
+# hostname 설정 후 재부팅 (*)
+reboot
 
 # 변경된 hostname 확인
 hostname
@@ -270,39 +273,38 @@ sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
 
 ## Cloudera Manager Install Lab
 ```
-<선택>
-C:\Windows\System32\drivers\etc > hosts 파일 메모장에서 편집
-15.164.82.177 util.com util <- 퍼블릭IP 로 도메인 추가
+[Local]
+C:\Windows\System32\drivers\etc > hosts 파일 편집
+# 퍼블릭IP 로 도메인 추가
+15.164.82.177 util.com util
 ```
 ![](../Image/cm_hostname.JPG)
 ### Install a cluster and deploy CDH
 ```
 http://util.com:7180
 admin / admin
-- trial 선택
 ```
 * Could not connect to host. 라고 보이는 경우 ssh server가 제대로 설치되었는지 확인
 ```
-# sudo yum install openssh-server
-# /sbin/service sshd status
-# /sbin/service sshd start
-# ssh localhost
+sudo yum install openssh-server
+/sbin/service sshd status
+/sbin/service sshd start
+ssh localhost
 ```
 
-* Cloudera manager 시작  
+* CDH 클러스터 설치 시작  
 ![](../Image/25.JPG)
-* CDH 클러스터 설치에 대한 호스트 지정  
 ![](../Image/26.JPG)
-* 클러스터 설치 - 리포지토리 선택 (수정사항 없음)
 ![](../Image/27.JPG)
-* 클러스터 설치 - JDK 설치 옵션  
+
+* JDK 설치 옵션  
 직접 node에 java 설치 진행했기 때문에 uncheck
 ![](../Image/28.JPG)
 
 #### • Do not use Single User Mode. Do not. Don't do it.
-* 클러스터 설치 - 단일모드 비활성화
+* 단일모드 비활성화
 ![](../Image/29.JPG)
-* 클러스터 설치 - ssh 로그인 정보 제공
+* ssh 로그인 정보 제공
 ![](../Image/30.JPG)
 ```
 heartbeat 오류시 hostname 재확인
@@ -322,6 +324,23 @@ HDFS, YARN, ZooKeeper 먼저 설치
 ```
 ![](../Image/35.JPG)
 #### • Deploy three ZooKeeper instances.
+```
+# HDFS
+HttpFS 선택 x
+NameNode - mn
+SecondaryNameNode - utils
+Balancer - dn1
+DataNode - dn[1-3]
+# CM
+Telementry Publisher 선택 x
+그 외 - all util
+# YARN
+ResourceManager - mn
+JobHistory Server - dn1
+Nodemanager - dn[1-3]
+# ZooKeeper
+Server - dn[1-2],mn
+```
 ![](../Image/36.JPG)
 ```
 생성한 db 계정으로 연결
@@ -338,22 +357,37 @@ HDFS, YARN, ZooKeeper 먼저 설치
 #### • Install the Data Hub Edition
 * Hue 서비스 추가
 ![](../Image/52.JPG)
+```
+Hue Server - util
+Load Balancer - util
+```
 ![](../Image/53.JPG)
 ![](../Image/54.JPG)
 
 #### • 추가 서비스 설치
 
 * Hive 서비스 추가
+```
+Gateway - dn[1-3], util
+Hive Metastore Server - util
+HiveServer2 - util
+```
 ![](../Image/42.JPG)
 ![](../Image/43.JPG)
 ![](../Image/44.JPG)
 ![](../Image/45.JPG)
 * Oozie 서비스 추가
 ![](../Image/46.JPG)
+```
+Oozie Server - util
+```
 ![](../Image/47.JPG)
 ![](../Image/48.JPG)
 ![](../Image/49.JPG)
 * Sqoop 서비스 추가
+```
+Sqoop2 Server - util
+```
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
