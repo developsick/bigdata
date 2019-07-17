@@ -1,6 +1,6 @@
 # Team2
 
-**조장 : 이인선**
+**조장 : 이인선**  
 ![이인선](https://user-images.githubusercontent.com/48976549/61356068-89bbaf80-a8b0-11e9-9653-f14129096dd5.PNG)
 
 **조원 : 김중호, 윤산성, 이선민**
@@ -125,7 +125,7 @@ sudo vi /etc/ssh/sshd_config
 sudo systemctl restart sshd.service
 sudo systemctl status sshd.service [not found 인 경우도 있음]
 ```
-PasswordAuthentication 변경
+PasswordAuthentication 변경  
 ![](../Image/10.JPG)  
 
 ![](../Image/9.JPG)
