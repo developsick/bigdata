@@ -12,7 +12,7 @@
 
 ## CM Install Lab
 
-### System Configuration Checks <all nodes>
+### System Configuration Checks [all nodes]
 
 #### 1. Check vm.swappiness on all your nodes
 ```
@@ -114,7 +114,7 @@ ntpq -p
 ![](../Image/11.JPG)
 
 #### 추가 작업
-* sshd_config setting for each node - all node!
+* sshd_config setting for each node [all nodes!]
 ```
 # SSH를 사용하여 EC2 인스턴스에 로그인할 때 키 페어 대신에 암호 로그인을 활성화하여 패스워드 인증 허용
 
@@ -130,7 +130,7 @@ PasswordAuthentication 변경
 
 ![](../Image/9.JPG)
 
-* Install dependencies using yum - all node  
+* Install dependencies using yum [all nodes]  
 ```
 sudo yum update
 sudo yum install -y wget
