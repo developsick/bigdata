@@ -71,7 +71,7 @@ getent hosts
 ![5](../Image/5.JPG)
 ```
 sudo yum install bind-utils net-tools -y
-
+# name server 관련 조회
 nslookup [도메인명]
 ```
 ![6](../Image/6.JPG)
@@ -409,6 +409,14 @@ Sqoop2 Server - util
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
+**Impala 서비스 추가**
+```
+Impala Catalog Server - util
+Impala StateStore - util
+Impala Daemon - dn[1-3]
+```
+![](../Image/80.JPG)
+
 **Kafka 서비스 추가**
 ```
 kafka 서비스 추가 전 패키지 배포 및 활성화
@@ -438,7 +446,7 @@ spark2 서비스 추가 전 패키지 배포 및 활성화
 ```
 ![](../Image/65.JPG)
 ```
-jar 파일을 특정 경로(/opt/cloudera/csd/)에 넣고 CDserver restart
+jar 파일을 특정 경로(/opt/cloudera/csd/)에 넣고 Cloudra server restart
 > sudo systemctl restart cloudera-scm-server
 ```
 ![](../Image/67.JPG)
@@ -451,9 +459,9 @@ HDFS, Hive, YARN, ZooKeeper가 있는 종속성 집합 선택
 **pyspark2 실행 확인**
 ![](../Image/78.JPG)
 
-
 **설치 완료**
-![](../Image/70.JPG)
+![](../Image/81.JPG)
+
 
 #### Create user “training” with password “training” and add to group wheel for sudo access. [all nodes]
 ```
@@ -487,8 +495,8 @@ $ scp -i ./skcc.pem all.zip training@dn1:.
 sudo yum install -y unzip
 unzip all.zip
 ```
-![](../Image/72.JPG)
-**unzip**
+![](../Image/72.JPG)  
+**unzip**  
 ![](../Image/73.JPG)
 
 **trainig user 권한 추가 [util]**
