@@ -496,7 +496,7 @@ sudo yum install -y unzip
 unzip all.zip
 ```
 ![](../Image/72.JPG)  
-**unzip**
+**unzip**  
 ![](../Image/73.JPG)
 
 **trainig user 권한 추가 [util]**
