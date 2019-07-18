@@ -409,6 +409,14 @@ Sqoop2 Server - util
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
+**Impala 서비스 추가**
+```
+Impala Catalog Server - util
+Impala StateStore - util
+Impala Daemon - dn[1-3]
+```
+![](../Image/80.JPG)
+
 **Kafka 서비스 추가**
 ```
 kafka 서비스 추가 전 패키지 배포 및 활성화
@@ -451,9 +459,9 @@ HDFS, Hive, YARN, ZooKeeper가 있는 종속성 집합 선택
 **pyspark2 실행 확인**
 ![](../Image/78.JPG)
 
-
 **설치 완료**
-![](../Image/70.JPG)
+![](../Image/81.JPG)
+
 
 #### Create user “training” with password “training” and add to group wheel for sudo access. [all nodes]
 ```
