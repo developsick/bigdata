@@ -71,7 +71,7 @@ getent hosts
 ![5](../Image/5.JPG)
 ```
 sudo yum install bind-utils net-tools -y
-
+# name server 관련 조회
 nslookup [도메인명]
 ```
 ![6](../Image/6.JPG)
@@ -446,7 +446,7 @@ spark2 서비스 추가 전 패키지 배포 및 활성화
 ```
 ![](../Image/65.JPG)
 ```
-jar 파일을 특정 경로(/opt/cloudera/csd/)에 넣고 CDserver restart
+jar 파일을 특정 경로(/opt/cloudera/csd/)에 넣고 Cloudra server restart
 > sudo systemctl restart cloudera-scm-server
 ```
 ![](../Image/67.JPG)
@@ -495,7 +495,7 @@ $ scp -i ./skcc.pem all.zip training@dn1:.
 sudo yum install -y unzip
 unzip all.zip
 ```
-![](../Image/72.JPG)
+![](../Image/72.JPG)  
 **unzip**
 ![](../Image/73.JPG)
 
