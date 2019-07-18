@@ -39,8 +39,9 @@ sudo fdisk -l
 # hugepage는 2MB 크기의 메모리 블록
 sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/defrag"
 sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
-sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag' > /etc/rc.local" sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' >
-/etc/rc.local" sudo cat /etc/rc.local
+sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag' > /etc/rc.local"
+sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' > /etc/rc.local"
+sudo cat /etc/rc.local
 ```
 
 ![3](../Image/3.JPG)
@@ -394,6 +395,13 @@ Oozie Server - util
 ![](../Image/47.JPG)
 ![](../Image/48.JPG)
 ![](../Image/49.JPG)
+
+**클러스터 세팅 완료**
+![](../Image/55_cm.JPG)
+
+
+### Install Sqoop, Spark and Kafka
+
 **Sqoop 서비스 추가**
 ```
 Sqoop2 Server - util
@@ -401,5 +409,110 @@ Sqoop2 Server - util
 ![](../Image/50.JPG)
 ![](../Image/51.JPG)
 
-**클러스터 세팅 완료**
-![](../Image/55_cm.JPG)
+**Kafka 서비스 추가**
+```
+kafka 서비스 추가 전 패키지 배포 및 활성화
+```
+![](../Image/59.JPG)
+```
+heap size 최소 256MB로 설정
+```
+![](../Image/61.JPG)
+```
+(*) Kafka 정상 실행을 위해서는 자바 1.8 버전 설치되어 있어야 함
+> sudo -i rpm -ivh /home/centos/jdk-8u211-linux-x64.rpm [all nodes]
+
+path를 못찾는 에러 발생하면 아래와 같이 Java 홈 디렉토리 설정
+```
+![](../Image/62.JPG)
+
+**spark2 서비스 추가**
+```
+spark2 패키지 다운로드를 위해 Parcel Repository 주소 추가
+spark2 jar 파일 다운로드
+```
+![](../Image/64.JPG)
+![](../Image/63.JPG)
+```
+spark2 서비스 추가 전 패키지 배포 및 활성화
+```
+![](../Image/65.JPG)
+```
+jar 파일을 특정 경로(/opt/cloudera/csd/)에 넣고 CDserver restart
+> sudo systemctl restart cloudera-scm-server
+```
+![](../Image/67.JPG)
+```
+HDFS, Hive, YARN, ZooKeeper가 있는 종속성 집합 선택
+```
+![](../Image/68.JPG)
+![](../Image/66.JPG)
+![](../Image/69.JPG)
+**pyspark2 실행 확인**
+![](../Image/78.JPG)
+
+
+**설치 완료**
+![](../Image/70.JPG)
+
+#### Create user “training” with password “training” and add to group wheel for sudo access. [all nodes]
+```
+cat /etc/passwd | grep training
+sudo useradd training
+sudo passwd training
+sudo usermod -aG wheel training
+
+# 계정 그룹 설정 확인
+getent group wheel
+
+# training 계정으로 접속
+su training
+```
+![](../Image/71.JPG)
+
+#### Now, try ssh’ing into the hosts as user “training”
+
+
+#### download all.zip and unzip it.
+* Do this in both your CM host and one of the datanode hosts.
+```
+# all.zip이 있는 윈도우 경로에서 실행 >> 결과 값 호스트 홈 디렉토리에 업로드
+$ scp -i ./skcc.pem all.zip training@<util 외부 ip>:.
+$ scp -i ./skcc.pem all.zip training@<dn1 외부 ip>:.
+or
+$ scp -i ./skcc.pem all.zip training@util:.
+$ scp -i ./skcc.pem all.zip training@dn1:.
+
+# unzip [util. dn1]
+sudo yum install -y unzip
+unzip all.zip
+```
+![](../Image/72.JPG)
+**unzip**
+![](../Image/73.JPG)
+
+**trainig user 권한 추가 [util]**
+```
+mysql -u root -p
+GRANT ALL ON *.* TO 'training'@'%' IDENTIFIED BY 'training';
+show grants for 'training'@'%';
+```
+![](../Image/74.JPG)
+
+#### Log into Hue as user “training” with password “training”
+* This will create a HDFS directory for the user  
+
+**Hue에서 training user 등록**
+```
+HDFS에 폴더 생성하기 위하여 홈 디렉토리 생성 check!
+```
+![](../Image/75.JPG)
+**HDFS에 training 디렉토리 생성 확인**
+![](../Image/76.JPG)
+* Go to training_material/devsh/scripts and review the setup.sh
+```
+# setup script review
+cd /home/training/training_materials/devsh/scripts
+cat setup.sh
+```
+![](../Image/79.JPG)
