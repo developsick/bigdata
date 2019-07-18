@@ -524,3 +524,13 @@ cd /home/training/training_materials/devsh/scripts
 cat setup.sh
 ```
 ![](../Image/79.JPG)
+```
+# setup.sh 실행
+./setup.sh
+```
+![](../Image/82.JPG)
+```
+mysql에서 DB 생성 확인
+```
+![](../Image/83.JPG)
+![](../Image/84.JPG)
