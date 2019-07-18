@@ -139,10 +139,6 @@ SELINUX=disabled
 #Root 계정으로 변경
 sudo -i
 reboot
-
-# putty 재접속 이후 활성화 여부 확인하면 disabled 적용되어 있음
-#selinux 활성화 여부 확인
-getenforce
 ```
 
 * Install dependencies using yum [all nodes]  
