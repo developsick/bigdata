@@ -257,6 +257,7 @@ admin / admin
 HDFS, YARNm Zookeeper 먼저 설치 후
 Hive, oozie, sqoop, impala, hue 추가 설치
 ```
+* Cloudera Manager
 
 ![](../Testimage/part1/cm_최종.PNG)
 
@@ -273,9 +274,8 @@ su training
 # 폴더 생성 확인
 
 hdfs dfs -ls /user/
-
 ```
-![](../Testimage/part1/hue.PNG)
+![](../Testimage/part1/hue.PNG)  
 ![](../Testimage/part1/26.PNG)
 
 
