@@ -123,8 +123,8 @@ sudo wget https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/cloudera-manager.r
 
 * base url 수정 (all node)
 ```
-[centos@util ~]$ sudo vi /etc/yum.repos.d/cloudera-manager.repo
-baseurl=https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.15.2/
+sudo vi /etc/yum.repos.d/cloudera-manager.repo
+modify : baseurl=https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/5.15.2/
 ```
 * rpm 에 key 추가
 ```
@@ -152,7 +152,6 @@ sudo yum install -y oracle-j2sdk1.7
 ```
 vi ~/.bash_profile
 
-# 아래 두줄 추가
 # :$PATH가 뒤에 있어야 java -version 했을 때 정상적인 버전 확인 가능
 export JAVA_HOME=/usr/java/jdk1.7.0_67-cloudera
 export PATH=/usr/java/jdk1.7.0_67-cloudera/bin:$PATH
@@ -190,13 +189,13 @@ sudo systemctl status mariadb
 # 권한 설정 : 전체 Y 선택
 sudo /usr/bin/mysql_secure_installation
 ```
-![](../Testimage/part1/22.PNG)  
+![](../Testimage/part1/14.PNG)  
 
 * create databases for cloudrea sw
 ```
 mysql version 확인
 ```
-![](../Testimage/part1/22.PNG)
+![](../Testimage/part1/25.PNG)
 
 ```
 mysql -u root -p
