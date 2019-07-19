@@ -30,7 +30,7 @@ skcc:x:1001:training
 getent group wheel
 wheel:x:10:centos,training
 ```
-![1](../image/part1/0.JPG)
+![1](../image/part1/0.PNG)
 ```
 #selinux 활성화 여부 확인
 
