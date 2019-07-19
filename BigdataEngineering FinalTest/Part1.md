@@ -111,7 +111,7 @@ sudo yum install -y wget
 
 * yum list 확인
 ```
-yum repolist
+yum repolist all
 ```
 
 
