@@ -162,6 +162,7 @@ source ~/.bash_profile
 java -version
 ```
 ![](../Testimage/part1/12.PNG)
+![](../Testimage/part1/java.PNG)
 
 * install JDBC connector
 ```
