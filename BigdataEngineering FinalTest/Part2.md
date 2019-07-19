@@ -102,6 +102,7 @@ and a.amount < 0;
 ```
 ```
 # 수행 결과 확인
+
 select * from solution limit 3;
 
 10001	Sybil	Wiley	(504) 780-0366
@@ -263,7 +264,7 @@ select id
 from employee;
 ```
 ```
-# 결과 확인
+# 수행 결과 확인
 
 select * from solution limit 3;
 
@@ -430,7 +431,7 @@ limit 3
 ;
 ```
 ```
-# 수행 결과 확인
+# 수행 결과 확인 (TOP 3)
 
 1.5 TB SATA3 Disk	3956
 16 GB Micro SD	3279
@@ -479,7 +480,7 @@ select o.order_id,
  limit 10;
 ```
 ```
-# 수행 결과 확인
+# 수행 결과 확인 (TOP 10)
 
 5605465	940577
 5997571	702157
