@@ -388,7 +388,7 @@ posts b
 WHERE A.id = b.author_id
 GROUP BY a.id, a.first_name, a.last_name;
 ```
-![](../Testimage/part1/hue-query.PNG)
+![](../Testimage/part1/31.PNG)
 
 * Create a MySQL table and name it “results”
 ```
@@ -415,3 +415,4 @@ sqoop export \
 --export-dir hdfs://mn.com:8020/user/training/results
 ```
 ![](../Testimage/part1/sqoop_final.PNG)
+![](../Testimage/part1/30.PNG)
