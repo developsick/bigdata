@@ -30,14 +30,16 @@ skcc:x:1001:training
 getent group wheel
 wheel:x:10:centos,training
 ```
-![1](../Testimage/part1/0.PNG)
+![](../Testimage/part1/0.PNG)
 
+* Disable SElinux
 ```
 #selinux 활성화 여부 확인
 
 getenforce
 
 ````
+![](../Testimage/part1/1.PNG)
 
 * /etc/hosts setting
 
@@ -53,8 +55,10 @@ sudo vi /etc/hosts
 ```
 
 * host 확인
-
+```
 getent hosts
+```
+![](../Testimage/part1/3.PNG)
 
 * hostname modification each node
 ```
@@ -71,12 +75,16 @@ hostname
 ```
 grep . /etc/*release
 ```
+![](../Testimage/part1/4.PNG)
+
 
 * filesystem / disk 확인
 ```
 df -Th
 sudo fdisk -l
 ```
+![](../Testimage/part1/5.PNG)
+
 
 * sshd_config
 ```
@@ -90,6 +98,8 @@ sudo systemctl restart sshd.service
 sudo systemctl status sshd.service [not found 인 경우도 있음]
 
 ```
+![](../Testimage/part1/6.PNG)
+![](../Testimage/part1/7.PNG)
 
 * install yum
 ```
@@ -97,16 +107,19 @@ sudo yum update
 sudo yum install -y wget
 
 ```
+![](../Testimage/part1/8.PNG)
 
 * yum list 확인
 ```
 yum repolist
 ```
 
+
 * config repository (all node)
 ```
 sudo wget https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/cloudera-manager.repo -P /etc/yum.repos.d/
 ```
+![](../Testimage/part1/9.PNG)
 
 * base url 수정 (all node)
 ```
@@ -123,6 +136,8 @@ sudo rpm --import https://archive.cloudera.com/cm5/redhat/7/x86_64/cm/RPM-GPG-KE
 ```
 sudo yum install cloudera-manager-daemons cloudera-manager-server
 ```
+![](../Testimage/part1/9.PNG)
+
 
 * install jdk
 ```
@@ -131,6 +146,7 @@ sudo yum list oracle*
 
 sudo yum install -y oracle-j2sdk1.7
 ```
+![](../Testimage/part1/11.PNG)
 
 * java 경로 설정
 ```
@@ -146,6 +162,7 @@ source ~/.bash_profile
 # java version 확인
 java -version
 ```
+![](../Testimage/part1/12.PNG)
 
 * install JDBC connector
 ```
@@ -157,6 +174,7 @@ sudo cp mysql-connector-java-5.1.47-bin.jar /usr/share/java/mysql-connector-java
 cd /usr/share/java/
 sudo yum install -y mysql-connector-java
 ```
+![](../Testimage/part1/13.PNG)
 
 * install mariaDB
 
@@ -172,8 +190,14 @@ sudo systemctl status mariadb
 # 권한 설정 : 전체 Y 선택
 sudo /usr/bin/mysql_secure_installation
 ```
+![](../Testimage/part1/22.PNG)  
 
 * create databases for cloudrea sw
+```
+mysql version 확인
+```
+![](../Testimage/part1/22.PNG)
+
 ```
 mysql -u root -p
 
@@ -201,12 +225,14 @@ GRANT ALL ON oozie.* TO 'oozie-user'@'%' IDENTIFIED BY 'password';
 
 FLUSH PRIVILEGES;
 ```
+![](../Testimage/part1/15.PNG)
 
 * start CM server
 ```
 #모든 Node에 비밀번호 설정 (*중요*)
 sudo passwd centos
 ```
+![](../Testimage/part1/16.PNG)
 
 ```
 #  set CM DB
@@ -218,9 +244,28 @@ sudo tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
 
 * Cloudera Manager start
 
+```
+http://<public ip>:7180
+admin / admin
+```
+![](../Testimage/part1/18.PNG)
+![](../Testimage/part1/19.PNG)
+![](../Testimage/part1/21.PNG)
+![](../Testimage/part1/22.PNG)
+![](../Testimage/part1/24.PNG)
 
+```
+HDFS, YARNm Zookeeper 먼저 설치 후
+Hive, oozie, sqoop, impala, hue 추가 설치
+```
 
-*
+![](../Testimage/part1/cm_최종.PNG)
+
+### Data handling
+
+* make sure user “training” has both a linux and HDFS
+home directory
+
 ```
 # trianing 계정으로 접속
 
@@ -230,17 +275,13 @@ su training
 
 hdfs dfs -ls /user/
 
-drwxrwxrwx   - mapred   hadoop            0 2019-07-19 06:41 /user/history
-drwxrwxr-t   - hive     hive              0 2019-07-19 06:44 /user/hive
-drwxrwxr-x   - hue      hue               0 2019-07-19 06:45 /user/hue
-drwxrwxr-x   - impala   impala            0 2019-07-19 06:51 /user/impala
-drwxrwxr-x   - oozie    oozie             0 2019-07-19 06:48 /user/oozie
-drwxrwxr-x   - sqoop2   sqoop             0 2019-07-19 06:46 /user/sqoop2
-drwxr-xr-x   - training training          0 2019-07-19 06:57 /user/training
-
 ```
+![](../Testimage/part1/hue.PNG)
+![](../Testimage/part1/26.PNG)
 
-*
+
+* In MySQL create the sample tables that will be used for the rest of the test
+
 ```
 # zip파일이 있는 윈도우 경로에서 실행 >> 결과 값 호스트 홈 디렉토리에 업로드
 $ scp -i ./skcc.pem authors.sql.zip training@<util 외부 ip>:.
@@ -251,6 +292,7 @@ sudo yum install -y unzip
 unzip authors.sql.zip
 unzip posts.sql.zip
 ```
+![](../Testimage/part1/27.PNG)
 
 * training user 권한 추가
 ```
@@ -258,6 +300,7 @@ mysql -u root -p
 GRANT ALL ON *.* TO 'training'@'%' IDENTIFIED BY 'training';
 show grants for 'training'@'%';
 ```
+![](../Testimage/part1/28.PNG)
 
 * create 'test' db
 ```
@@ -269,6 +312,7 @@ use test;
 source ./authors-23-04-2019-02-34-beta.sql
 source ./posts23-04-2019 02-44.sql
 ```
+![](../Testimage/part1/29.PNG)
 
 * The imported data should be saved in training’s HDFS home directory
 ```
@@ -280,6 +324,8 @@ sqoop import \
 --fields-terminated-by "\t" \
 --target-dir /user/training/posts
 ```
+![](../Testimage/part1/sqoop1.PNG)
+
 ```
 sqoop import \
 --connect jdbc:mysql://util.com/test \
@@ -289,6 +335,7 @@ sqoop import \
 --fields-terminated-by "\t" \
 --target-dir /user/training/authors
 ```
+![](../Testimage/part1/sqoop2.PNG)
 
 * Create authors as and external table.
 ```
@@ -342,6 +389,7 @@ posts b
 WHERE A.id = b.author_id
 GROUP BY a.id, a.first_name, a.last_name;
 ```
+![](../Testimage/part1/hue-query.PNG)
 
 * Create a MySQL table and name it “results”
 ```
@@ -367,3 +415,4 @@ sqoop export \
 --fields-terminated-by '\t' \
 --export-dir hdfs://mn.com:8020/user/training/results
 ```
+![](../Testimage/part1/sqoop_final.PNG)
