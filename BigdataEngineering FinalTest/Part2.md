@@ -186,12 +186,12 @@ where state = 'CA'
 
 select * from solution limit 3;
 
-10000063	Burton	Hayes	Ap #720-4012 Vivamus Avenue	San Diego	CA	96066-0000
-10000068	Ria	Herman	2974 Cras St.	San Francisco	CA	95310-0000
-10000073	Daquan	Roy	7636 Et Rd.	Los Angeles	CA	96606-0000
+10000063	Burton	Hayes	Ap #720-4012 Vivamus Avenue	San Diego	CA	96066
+10000068	Ria	Herman	2974 Cras St.	San Francisco	CA	95310
+10000073	Daquan	Roy	7636 Et Rd.	Los Angeles	CA	96606
 
 ```
-![](../Testimage/part2/4.PNG)
+![](../Testimage/part2/4-1.PNG)
 
 
 ### Problem5
