@@ -414,5 +414,6 @@ sqoop export \
 --fields-terminated-by '\t' \
 --export-dir hdfs://mn.com:8020/user/training/results
 ```
-![](../Testimage/part1/sqoop_final.PNG)  
+![](../Testimage/part1/sqoop_final.PNG)   
+
 ![](../Testimage/part1/30.PNG)
