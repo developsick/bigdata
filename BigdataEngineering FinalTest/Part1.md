@@ -257,6 +257,38 @@ admin / admin
 HDFS, YARNm Zookeeper 먼저 설치 후
 Hive, oozie, sqoop, impala, hue 추가 설치
 ```
+```
+# HDFS
+  HttpFS 선택 x
+  NameNode - mn
+  SecondaryNameNode - utils
+  Balancer - dn1
+  DataNode - dn[1-3]
+# CM
+  Telementry Publisher 선택 x
+  그 외 - all util
+# YARN
+  ResourceManager - mn
+  JobHistory Server - dn1
+  Nodemanager - dn[1-3]
+# ZooKeeper
+  Server - dn[1-2],mn
+* hive
+  Gateway - dn[1-3], util
+  Hive Metastore Server - util
+  HiveServer2 - util
+* oozie
+  oozie server - util
+* sqoop2    
+  sqoop2 server - util
+* impala
+  Impala Catalog Server - util
+  Impala StateStore - util
+  Impala Daemon - dn[1-3]
+* hue
+  Hue Server - util
+  Load Balancer - util
+```
 * Cloudera Manager
 
 ![](../Testimage/part1/cm_최종.PNG)
